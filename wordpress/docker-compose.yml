@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  wordpress:
+    depends_on:
+      - db
+    image: neet-wordpress
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./wordpress_src:/opt/wordpress
+      # https化する際の設定のため、適宜修正が必要
+      #- /etc/letsencrypt/live/example.com:/etc/letsencrypt/live/example.com
+      #- /etc/letsencrypt/archive/example.com:/etc/letsencrypt/archive/example.com
+  db:
+    image: neet-mariadb
+    volumes:
+      - dbvolume:/var/lib/mysql
+
+volumes:
+  dbvolume:
